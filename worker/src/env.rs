@@ -10,6 +10,7 @@ use crate::Ai;
 use crate::Queue;
 use crate::{durable::ObjectNamespace, Bucket, DynamicDispatcher, Fetcher, Result, SecretStore};
 use crate::{error::Error, hyperdrive::Hyperdrive};
+use crate::SendEmail;
 
 use js_sys::Object;
 use serde::de::DeserializeOwned;
@@ -126,6 +127,10 @@ impl Env {
 
     /// Access a Rate Limiter by the binding name configured in your wrangler.toml file.
     pub fn rate_limiter(&self, binding: &str) -> Result<RateLimiter> {
+        self.get_binding(binding)
+    }
+
+    pub fn send_email(&self, binding: &str) -> Result<SendEmail> {
         self.get_binding(binding)
     }
 }
